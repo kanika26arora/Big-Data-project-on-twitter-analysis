@@ -18,16 +18,18 @@
              Vagrant is used as it isolate dependencies and their configuration within a single disposable, consistent environment, without sacrificing any of the tools we are used to working with (editors, browsers, debuggers, etc.). We created a single Vagrantfile and then we just needed to vagrant up and everything is installed and configured to work. Other members of the team create their development environments from the same configuration, so whether we are working on Linux, Mac OS X, or Windows, all the team members are running code in the same environment, against the same dependencies, all configured the same way. Say goodbye to "works on my machine" bugs. This is how Vagrant benefits us.
 
 
-**VagrantFile:**
- -*- mode: ruby -*-
-  vi: set ft=ruby :
+# **VagrantFile:**
+
+mode: ruby 
+vi: set ft=ruby :
 
 All Vagrant configuration is done below. The "2" in Vagrant.configure 
 configures the configuration version (we support older styles for
 backwards compatibility). Please don't change it unless you know what
 you're doing.
 
-# Vagrant.configure("2") do |config|
+Vagrant.configure("2") do |config|
+
 The most common configuration options are documented and commented below.
 For a complete reference, please see the online documentation at
 https://docs.vagrantup.com.
@@ -38,9 +40,9 @@ name of the box:
 config.vm.box = "hashicorp/precise64"
 config.vm.box_version = "1.1.0"
 http address of the box
-# config.vm.box_url = "https://atlas.hashicorp.com/hashicorp/boxes/precise64/versions/1.1.0/providers/virtualbox.box"
-# config.vm.network :forwarded_port, guest: 5000, host: 5000
-# config.vm.provision :shell, path: "bootstrap.sh"
+ config.vm.box_url = "https://atlas.hashicorp.com/hashicorp/boxes/precise64/versions/1.1.0/providers/virtualbox.box"
+ config.vm.network :forwarded_port, guest: 5000, host: 5000
+ config.vm.provision :shell, path: "bootstrap.sh"
 
 Disable automatic box update checking. If you disable this, then
 boxes will only be checked for updates when the user runs
@@ -102,7 +104,7 @@ Here, the  config.vm.provision command is used to run any configured provisioner
 Bootstrap.sh is a shell scripting file which holds commands to download, extract and install all the tools like maven, jdk, connection to flask, zookeeper framework, apache storm etc.
 So, once we type the command ‘vagrant up’ in command prompt, VagrantFile is executed from which vagrant box starts which are nothing but a base image to quickly clone a virtual machine and provision command will direct the system to run bootstap.sh and the rest of the softwares will be downloaded.
 
-**Bootstrap.sh:**
+# **Bootstrap.sh:**
 
 sudo tar xvzf jdk-8u101-linux-x64.tar.gz
 sudo sh -c "echo 'JAVA_HOME=/usr/local/java/jdk1.8.0_101' >> /etc/profile"
